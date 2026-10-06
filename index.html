@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>It's Saturday — Aibo Banner</title>
+  <title>It's Saturday — Woody Banner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
@@ -22,7 +22,6 @@
       --title-size: 12.5cqmin;     /* Aibo */
       --kana-size: 2.6cqmin;       /* あいぼう */
       --series-size: 3.3cqmin;     /* 寵物陪伴系列 */
-      --desc-size: max(13px, 1.7cqmin); /* 下方兩行說明 */
 
       /* ══════════ 版面設定（與「Gift for U and me」banner 一致） ══════════ */
       --height-pc: 600px;          /* 電腦版高度 */
@@ -112,13 +111,6 @@
       letter-spacing: 0.32em;
       text-indent: 0.32em;            /* 抵銷最後一字的字距，讓置中更準 */
     }
-    .desc {
-      font-weight: 400;
-      font-size: var(--desc-size);
-      line-height: 2;
-      letter-spacing: 0.18em;
-      text-indent: 0.18em;
-    }
 
     /* ===== 手機（767px 以下）：文字放大 ===== */
     @media (max-width: 767px) {
@@ -126,7 +118,6 @@
         --title-size: 17cqmin;
         --kana-size: 4cqmin;
         --series-size: max(16px, 5cqmin);
-        --desc-size: max(12px, 3cqmin);
       }
     }
 
@@ -135,6 +126,14 @@
       .banner {
         aspect-ratio: auto;
         height: var(--height-tab);
+      }
+    }
+
+    /* ===== 平板＋電腦（768px 以上）：文字在左圖上下左右置中 ===== */
+    @media (min-width: 768px) {
+      .copy {
+        justify-content: center;
+        padding: 6cqmin;
       }
     }
 
@@ -147,9 +146,6 @@
       }
       .side {
         display: block;
-      }
-      .copy {
-        padding: 12cqmin 6cqmin 4.5cqmin;
       }
     }
   </style>
@@ -172,7 +168,6 @@
           <h2 class="title">Woody</h2>
           <p class="series">溫暖木質香調</p>
         </div>
-        <p class="desc"></p>
       </div>
     </div>
 
@@ -196,7 +191,7 @@
         var h = document.querySelector(".banner").offsetHeight;
         if (h && h !== last) {
           last = h;
-          window.parent.postMessage({ ispBannerHeight: h, ispBannerId: "isp-aibo-banner" }, "*");
+          window.parent.postMessage({ ispBannerHeight: h, ispBannerId: "isp-woody-banner" }, "*");
         }
       }
       window.addEventListener("load", report);
