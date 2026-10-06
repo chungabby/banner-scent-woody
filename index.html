@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>It's Saturday — Aibo Banner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- 英文字體：Adobe Fonts「collier」 -->
+  <link rel="stylesheet" href="https://use.typekit.net/ezg8jxr.css">
+  <style>
+    :root {
+      /* ══════════ 顏色設定 ══════════ */
+      --bg: #d9cbbb;               /* 圖片載入前的底色 */
+      --text: #ffffff;             /* 文字顏色 */
+
+      /* ══════════ 字型設定（英文 collier、中日文思源黑體） ══════════ */
+      --font: "collier", 'Noto Sans TC', sans-serif;
+
+      /* ══════════ 文字大小（cqmin = 左圖寬、高較短的那一邊的 %，圖變大字就跟著變大） ══════════ */
+      --title-size: 12.5cqmin;     /* Aibo */
+      --kana-size: 2.6cqmin;       /* あいぼう */
+      --series-size: 3.3cqmin;     /* 寵物陪伴系列 */
+      --desc-size: max(13px, 1.7cqmin); /* 下方兩行說明 */
+
+      /* ══════════ 版面設定（與「Gift for U and me」banner 一致） ══════════ */
+      --height-pc: 600px;          /* 電腦版高度 */
+      --height-tab: 740px;         /* 平板版高度 */
+      --ratio-m: 800 / 1250;       /* 手機版比例（統一尺寸 800×1250） */
+      --cols: 2fr 1.02fr 0.98fr;   /* 電腦版三欄寬度：左圖、中窄圖、右窄圖 */
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      background: var(--bg);
+      overflow-x: hidden;
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== 外框：手機／平板先顯示左圖一張 ===== */
+    .banner {
+      display: grid;
+      grid-template-columns: 1fr;
+      aspect-ratio: var(--ratio-m);
+      width: 100%;
+      background: var(--bg);
+    }
+    .side {
+      display: none;
+    }
+
+    .cell {
+      position: relative;
+      min-width: 0;
+      height: 100%;
+    }
+    .cell img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      color: transparent;
+      background: var(--bg);
+    }
+
+    /* ===== 左圖：文字疊在圖上 ===== */
+    .main {
+      container-type: size;          /* 讓文字依左圖大小自動縮放 */
+    }
+    .copy {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11cqmin 6cqmin 6cqmin;
+      color: var(--text);
+      text-align: center;
+    }
+
+    .title {
+      font-weight: 300;
+      font-size: 64px;                 /* 舊瀏覽器備用 */
+      font-size: var(--title-size);
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+    .kana {
+      margin-top: 0.5em;
+      font-weight: 300;
+      font-size: var(--kana-size);
+      line-height: 1.4;
+      letter-spacing: 0.12em;
+    }
+    .series {
+      margin-top: 0.8em;
+      font-weight: 300;
+      font-size: var(--series-size);
+      line-height: 1.4;
+      letter-spacing: 0.32em;
+      text-indent: 0.32em;            /* 抵銷最後一字的字距，讓置中更準 */
+    }
+    .desc {
+      font-weight: 400;
+      font-size: var(--desc-size);
+      line-height: 2;
+      letter-spacing: 0.18em;
+      text-indent: 0.18em;
+    }
+
+    /* ===== 手機（767px 以下）：文字放大 ===== */
+    @media (max-width: 767px) {
+      :root {
+        --title-size: 17cqmin;
+        --kana-size: 4cqmin;
+        --series-size: max(16px, 5cqmin);
+        --desc-size: max(12px, 3cqmin);
+      }
+    }
+
+    /* ===== 平板（768–1023px）：只顯示左圖，高度 740px ===== */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .banner {
+        aspect-ratio: auto;
+        height: var(--height-tab);
+      }
+    }
+
+    /* ===== 電腦（1024px 以上）：左圖＋兩張窄圖，高度 600px ===== */
+    @media (min-width: 1024px) {
+      .banner {
+        grid-template-columns: var(--cols);
+        aspect-ratio: auto;
+        height: var(--height-pc);
+      }
+      .side {
+        display: block;
+      }
+      .copy {
+        padding: 12cqmin 6cqmin 4.5cqmin;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+
+    <!-- 左圖（手機版也顯示）→ 換成「沒有文字」的圖片網址 -->
+    <div class="cell main">
+      <picture>
+        <!-- 手機版圖片（建議 800×1250 直式） -->
+        <source media="(max-width: 767px)" srcset="https://ik.imagekit.io/itssaturday/banner/banner-scent-01-m.jpg">
+        <!-- 電腦／平板圖片（建議 1200×1000） -->
+        <img src="https://ik.imagekit.io/itssaturday/banner/banner-scent-01.jpg" alt="木質調香氛蠟燭">
+      </picture>
+
+      <div class="copy">
+        <div class="head">
+          <h2 class="title">Aibo</h2>
+          <p class="kana">あいぼう</p>
+          <p class="series">寵物陪伴系列</p>
+        </div>
+        <p class="desc">比朋友更親密的夥伴<br>寵物友善香氛，給你最療癒的盛夏香氛</p>
+      </div>
+    </div>
+
+    <!-- 中間窄圖（手機自動隱藏）→ 510 × 1000 -->
+    <div class="cell side">
+      <img src="https://ik.imagekit.io/itssaturday/banner/banner-scent-02.jpg" alt="木質調香氛蠟燭" loading="lazy">
+    </div>
+
+    <!-- 右邊窄圖（手機自動隱藏）→ 490 × 1000 -->
+    <div class="cell side">
+      <img src="https://ik.imagekit.io/itssaturday/banner/banner-scent-03.jpg" alt="木質調香氛蠟燭" loading="lazy">
+    </div>
+
+  </div>
+
+  <script>
+    /* 把內容的實際高度回報給 BVShop 頁面，讓框框高度自動剛好 */
+    (function () {
+      var last = 0;
+      function report() {
+        var h = document.querySelector(".banner").offsetHeight;
+        if (h && h !== last) {
+          last = h;
+          window.parent.postMessage({ ispBannerHeight: h, ispBannerId: "isp-aibo-banner" }, "*");
+        }
+      }
+      window.addEventListener("load", report);
+      window.addEventListener("resize", report);
+      Array.prototype.forEach.call(document.images, function (img) {
+        img.addEventListener("load", report);
+      });
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(report);
+      report();
+      setTimeout(report, 500);
+      setTimeout(report, 1500);
+    })();
+  </script>
+</body>
+</html>
